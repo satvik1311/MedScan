@@ -3,12 +3,15 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Upload, Camera, FileText, X } from 'lucide-react';
+import { BlobServiceClient } from '@azure/storage-blob';
 
 const PrescriptionUpload = ({ onAnalyze, isAnalyzing }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef(null);
+
+  const sasUrl = 'https://medscanstorage.blob.core.windows.net/scans?sp=rcw&st=2025-07-23T18:04:21Z&se=2026-01-01T02:19:21Z&spr=https&sv=2024-11-04&sr=c&sig=M0TSeBijRqX7IBEAocmulNF8JQ5LlhMJYwKkYSrRoJc%3D';
 
   const handleFileSelect = (file) => {
     if (file && file.type.startsWith('image/')) {
@@ -47,9 +50,40 @@ const PrescriptionUpload = ({ onAnalyze, isAnalyzing }) => {
     }
   };
 
-  const handleAnalyze = () => {
+  const uploadToAzure = async (file) => {
+    if (!file) {
+      throw new Error('Please select a file!');
+    }
+
+    const blobName = `prescription_${new Date().getTime()}_${file.name}`; // Unique blob name
+
+    try {
+      const blobServiceClient = new BlobServiceClient(sasUrl);
+      const containerClient = blobServiceClient.getContainerClient('');
+      const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+
+      await blockBlobClient.uploadBrowserData(file, {
+        blockSize: 4 * 1024 * 1024, // 4MB block size
+        concurrency: 20,
+      });
+      console.log('Upload successful:', blockBlobClient.url);
+      return blockBlobClient.url; // Return the blob URL
+    } catch (error) {
+      console.error('Upload failed:', error);
+      throw new Error('Upload to Azure failed. Check console for details.');
+    }
+  };
+
+  const handleAnalyze = async () => {
     if (selectedFile && onAnalyze) {
-      onAnalyze(selectedFile);
+      try {
+        // Upload the file to Azure first
+        const blobUrl = await uploadToAzure(selectedFile);
+        // Pass the blob URL or file to onAnalyze
+        onAnalyze({ file: selectedFile, blobUrl });
+      } catch (error) {
+        alert(error.message);
+      }
     }
   };
 

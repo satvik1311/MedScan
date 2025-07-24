@@ -40,7 +40,8 @@ const AnalysisResults = ({ results, onNewAnalysis }) => {
       extractedText: results.extractedText,
       medicines: results.medicines,
       interactions: results.interactions,
-      recommendations: results.recommendations
+      recommendations: results.recommendations,
+      blobUrl: results.blobUrl // Include the blob URL if provided by onAnalyze
     };
     
     const blob = new Blob([JSON.stringify(reportData, null, 2)], { 

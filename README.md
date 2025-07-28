@@ -136,7 +136,7 @@ This application uses AI to **assist** with medical document understanding. It *
 
 ## 📬 Contact
 
-Built by \[Your Name]
+Built by Satvik
 📧 Email: [satvik.gaur12@gmail.com](mailto:satvik.gaur12@gmail.com)
 
 ---

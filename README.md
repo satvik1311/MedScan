@@ -31,7 +31,8 @@
 
 ---
 
-## 📂 Project Structure
+# 📂 Project Structure
+```
 medscan/
 ├── backend/
 │   ├── main.py                 # FastAPI server entry
@@ -54,7 +55,7 @@ medscan/
 │
 └── README.md
 
-
+```
 ---
 
 ## ⚙️ Setup Instructions

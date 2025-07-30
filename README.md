@@ -1,160 +1,126 @@
-🩺 MedScan
-MedScan is an AI-powered prescription analysis platform that enables users to upload prescription images and receive smart, automated insights. Using OCR and AI, MedScan extracts medical information, identifies medications, detects possible interactions, and provides safety recommendations — all through a seamless and secure interface.
+# 🩺 MedScan
 
-🚀 Features
-📸 Upload and analyze handwritten prescription images
+**MedScan** is an AI-powered prescription analysis platform that lets users upload images of medical prescriptions and receive automatic insights. It uses OCR to extract text and Azure AI to summarize, analyze, and detect drug interactions. All data is securely stored and presented in an easy-to-understand interface.
 
-🧠 Azure AI-powered summarization and classification
+---
 
-🔍 OCR using Azure Computer Vision / Form Recognizer
+## 🚀 Features
 
-⚕️ Medicine extraction and interaction analysis
+- 📸 Upload and analyze handwritten prescription images
+- 🧠 Azure OpenAI-powered summarization and classification
+- 🔍 OCR using Azure Computer Vision or Form Recognizer
+- ⚕️ Medicine extraction and interaction detection
+- 📝 AI-generated health recommendations
+- ☁️ Secure storage via Azure Blob Storage
+- 🛢️ Cosmos DB for analysis history
+- ⚡ FastAPI backend + React frontend
+- 📄 Downloadable reports
 
-📝 Auto-generated health recommendations
+---
 
-☁️ Azure Blob Storage for secure file management
+## 🧠 Technologies Used
 
-🛢️ Cosmos DB for storing analysis history
+| Layer | Tech Stack |
+|-------|------------|
+| **Frontend** | React.js, Tailwind CSS |
+| **Backend** | FastAPI (Python) |
+| **Storage** | Azure Blob Storage |
+| **OCR** | Azure Form Recognizer / Computer Vision |
+| **AI Analysis** | Azure OpenAI (`gpt-35-turbo`) |
+| **Database** | Azure Cosmos DB |
 
-⚡ FastAPI backend + React.js frontend
+---
 
-📄 Downloadable reports
-
-🧠 Technologies Used
-Layer	Tech
-Frontend	React.js + Tailwind CSS
-Backend	FastAPI (Python)
-Storage	Azure Blob Storage
-OCR	Azure Computer Vision / Form Recognizer
-AI Analysis	Azure OpenAI (gpt-35-turbo)
-Database	Azure Cosmos DB
-Auth	(optional) Azure AD / JWT (future roadmap)
-
-📂 Project Structure
-bash
-Copy
-Edit
+## 📂 Project Structure
 medscan/
 ├── backend/
-│   ├── main.py                 # FastAPI server entry
-│   ├── ocr.py                  # OCR logic using Azure Form Recognizer
-│   ├── ai_analysis.py          # AI summarization + classification
-│   ├── blob_utils.py           # Uploads to Azure Blob Storage
-│   ├── cosmos.py               # Cosmos DB interaction
-│   └── .env                    # Azure credentials
+│ ├── main.py
+│ ├── ocr.py
+│ ├── ai_analysis.py
+│ ├── blob_utils.py
+│ ├── cosmos.py
+│ └── .env
 │
 ├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── PrescriptionUpload.jsx
-│   │   │   ├── AnalysisResults.jsx
-│   │   │   └── LoadingState.jsx
-│   │   ├── App.jsx
-│   │   └── index.js
-│   └── public/
-│       └── index.html
+│ ├── src/
+│ │ ├── components/
+│ │ │ ├── PrescriptionUpload.jsx
+│ │ │ ├── AnalysisResults.jsx
+│ │ │ └── LoadingState.jsx
+│ │ ├── App.jsx
+│ │ └── index.js
+│ └── public/
+│ └── index.html
 │
 └── README.md
-⚙️ Setup Instructions
-🔐 Prerequisites
-Azure Subscription
 
-React + Node.js installed
+---
 
-Python 3.10+
+## ⚙️ Setup Instructions
 
-Azure Services:
+### 🔐 Prerequisites
 
-Blob Storage
+- Node.js and npm
+- Python 3.10+
+- Azure Subscription with:
+  - Blob Storage
+  - Form Recognizer / Computer Vision
+  - OpenAI resource
+  - Cosmos DB
 
-Computer Vision or Form Recognizer
+---
 
-Azure OpenAI (gpt-35-turbo)
+### 🧪 Backend Setup
 
-Cosmos DB
-
-🧪 Backend Setup
-Install dependencies
-
-bash
-Copy
-Edit
+```
 cd backend
 python -m venv venv
-source venv/bin/activate  # or venv\Scripts\activate on Windows
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
-Configure .env
-
-Create a .env file in the backend/ directory:
-
-env
-Copy
-Edit
-AZURE_BLOB_CONNECTION_STRING=...
+```
+# Create a .env file:
+```
+AZURE_BLOB_CONNECTION_STRING=your_blob_connection
 AZURE_FORM_RECOGNIZER_ENDPOINT=...
 AZURE_FORM_RECOGNIZER_KEY=...
 AZURE_OPENAI_ENDPOINT=...
 AZURE_OPENAI_KEY=...
 AZURE_COSMOS_ENDPOINT=...
 AZURE_COSMOS_KEY=...
-AZURE_COSMOS_DB_NAME=medscan
-Run FastAPI server
-
-bash
+AZURE_COSMOS_DB_NAME=medscan 
+```
+# Start the backend:
+```
 Copy
 Edit
 uvicorn main:app --reload
-💻 Frontend Setup
-bash
-Copy
-Edit
+```
+# 💻 Frontend Setup
+```
 cd frontend
 npm install
 npm start
-Make sure the backend is running on http://127.0.0.1:8000. The frontend will send image files and receive analysis data from the backend.
+```
+# 📷 How It Works
+Upload a prescription image.
 
-📷 How It Works
-Upload a photo of your prescription.
+OCR extracts medical text.
 
-The backend uses OCR to extract text.
+Azure OpenAI analyzes it for context and safety.
 
-The extracted text is sent to Azure OpenAI for classification and analysis.
+Output includes medicines, risks, and recommendations.
 
-Medicine names, usage, warnings, and possible interactions are detected.
+Results are saved to Cosmos DB.
 
-Results are stored in Cosmos DB and displayed in a beautiful UI.
+# 📌 Future Improvements
+Authentication (JWT or Azure AD)
 
-📥 Example Output
-txt
-Copy
-Edit
-Overall Risk Assessment: MODERATE
-Medicines: Augmentin 625mg, Enzoflam
-Analysis: Prescription includes antibiotics and painkillers. Risk of stomach upset. Avoid alcohol.
-Recommendations: Take after food. Follow dosage strictly.
-📌 Future Improvements
-User authentication (JWT or Azure AD)
+History and dashboard view
 
-History dashboard with filters
+Email report delivery
 
-Auto-email reports
+Support for regional languages
 
-Multilingual prescription support
-
-Integration with pharmacy APIs
-
-
-👨‍💻 Contributors
-Satvik Gaur — Developer, Designer, and Architect
-
-Special thanks to Azure AI Services for providing infrastructure
-
-🧠 Icon & Branding
-You can use this free MedScan icon suggestion:
-
-
-
-
-
+Pharmacy integration
 
 

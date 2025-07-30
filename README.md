@@ -34,25 +34,26 @@
 ## 📂 Project Structure
 medscan/
 ├── backend/
-│ ├── main.py
-│ ├── ocr.py
-│ ├── ai_analysis.py
-│ ├── blob_utils.py
-│ ├── cosmos.py
-│ └── .env
+│   ├── main.py                 # FastAPI server entry
+│   ├── ocr.py                  # OCR logic using Azure Form Recognizer
+│   ├── ai_analysis.py          # AI summarization + classification
+│   ├── blob_utils.py           # Uploads to Azure Blob Storage
+│   ├── cosmos.py               # Cosmos DB interaction
+│   └── .env                    # Azure credentials
 │
 ├── frontend/
-│ ├── src/
-│ │ ├── components/
-│ │ │ ├── PrescriptionUpload.jsx
-│ │ │ ├── AnalysisResults.jsx
-│ │ │ └── LoadingState.jsx
-│ │ ├── App.jsx
-│ │ └── index.js
-│ └── public/
-│ └── index.html
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── PrescriptionUpload.jsx
+│   │   │   ├── AnalysisResults.jsx
+│   │   │   └── LoadingState.jsx
+│   │   ├── App.jsx
+│   │   └── index.js
+│   └── public/
+│       └── index.html
 │
 └── README.md
+
 
 ---
 
